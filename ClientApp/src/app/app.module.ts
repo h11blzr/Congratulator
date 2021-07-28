@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { BirthdayRecordComponent } from './birthday-record/birthday-record.component';
 import { AllRecordsComponent } from './all-records/all-records.component';
-import { RecordEditComponent } from './record-edit/record-edit.component';
 import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
@@ -17,7 +16,6 @@ import { MessagesComponent } from './messages/messages.component';
     NavMenuComponent,
     BirthdayRecordComponent,
     AllRecordsComponent,
-    RecordEditComponent,
     MessagesComponent
   ],
   imports: [
@@ -26,6 +24,7 @@ import { MessagesComponent } from './messages/messages.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: BirthdayRecordComponent, pathMatch: 'full' },
+      { path: 'twoweeks', component: BirthdayRecordComponent},
       { path: 'all-records', component: AllRecordsComponent }
     ])
   ],

@@ -20,7 +20,7 @@ namespace Congratulator.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet("twoweeks")]
         public async Task<ActionResult<IList<BirthdayRecord>>> GetBirthdayRecords()
         {
             var closestBd = await _context.BirthdayRecords.OrderBy(o => o.Date.DayOfYear)
@@ -30,7 +30,7 @@ namespace Congratulator.Controllers
             return closestBd;
         }
 
-        [HttpGet("all-records")]
+        [HttpGet, HttpGet("all-records")]
         public async Task<ActionResult<IReadOnlyList<BirthdayRecord>>> GetAllBirthdayRecords()
         {
             return await _context.BirthdayRecords.OrderBy(o => o.Date.DayOfYear).ToListAsync();

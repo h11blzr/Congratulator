@@ -1,33 +1,28 @@
-<h2 id="tableLabel">The entire list</h2>
+<h4 id="tableLabel">The entire list</h4>
 <p *ngIf="!allBirthdayRecords"><em>Loading...</em></p>
 <table class="table table-striped" aria-labelledby="tableLabel" *ngIf="allBirthdayRecords">
   <thead>
     <tr>
       <th>Name</th>
       <th>Date</th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td><input type="text" id="new-record" #newName placeholder="Name"/></td>
       <td><input type="date" id="new-date" #newDate /></td>
-      <td><button class="add-btn" (click)="add(newName.value, newDate.value); newName.value=''; newDate.value=''">Add</button></td>
-      <td><button class="search-btn" (click)="search(newName.value, newDate.value)">Search</button></td>
+      <td><button class="btn add-btn" (click)="add(newName.value, newDate.value); newName.value=newNameValue; newDate.value=''">Add</button></td>
+      <td></td><!--<td><button class="search-btn" (click)="search(newName.value); newName.value=newNameValue;">Search by name</button></td>-->
     </tr>
     <tr *ngFor="let record of allBirthdayRecords">
-      <td><input id="{{'name-' + record.id}}" type="text" [(ngModel)]="record.name" [readonly]="!isEditable(record.id)" /></td>
-      <td>
-        <mat-form-field appearance="fill">
-          <mat-label>Date of birth</mat-label>
-          <input matInput [matDatepicker]="picker" [(value)]="record.date" [readonly]="!isEditable(record.id)">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <!--<input id="{{'date-' + record.id}}" type="date" [ngModel]="record.date | date: 'yyyy-MM-dd'" (ngModelChange)="record.date " [readonly]="!isEditable(record.id)" />-->
-      </td>
-      <td *ngIf="!isEditable(record.id)"><button class="edit-btn" (click)="edit(record)">Edit</button></td>
-      <td *ngIf="isEditable(record.id)"><button class="save-btn" (click)="save(record)">Save</button></td>
-      <td><button class="delete-btn" (click)="delete(record)">Delete</button></td>
+      <td><input id="{{'name-' + record.id}}" type="text" [(ngModel)]="record.name" [disabled]="!isEditable(record.id)" /></td>
+      <td><input id="{{'date-' + record.id}}" #date type="date" [ngModel]="record.date | date: 'yyyy-MM-dd'" [disabled]="!isEditable(record.id)" /></td>
+      <td *ngIf="!isEditable(record.id)"><button class="btn edit-btn" (click)="edit(record)">Edit</button></td>
+      <td *ngIf="isEditable(record.id)"><button class="btn save-btn" (click)="record.date = date.value; save(record)">Save</button></td>
+      <td><button class="btn delete-btn" (click)="delete(record)" [disabled]="!isEditable(record.id)">Delete</button></td>
     </tr>
   </tbody>
 </table>
+<app-messages></app-messages>

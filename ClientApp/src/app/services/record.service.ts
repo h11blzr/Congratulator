@@ -45,6 +45,15 @@ export class RecordService {
       catchError(this.handleError<IRecord>('editRecord')));
   }
 
+  //searchRecord(termName: string): Observable<IRecord[]> {
+  //  return this.httpsClient.get<IRecord[]>(this.baseUrl + 'api/birthday/all-records').pipe(
+  //    tap((filteredList: IRecord[]) => {
+  //      filteredList.filter(r => r.name.includes(termName));
+  //      this.messageService.add(`The record was found`);
+  //    }),
+  //    catchError(this.handleError<IRecord[]>('getRecords', [])));
+  //}
+
   /**
     * Handle Http operation that failed.
     * Let the app continue.

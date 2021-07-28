@@ -11,7 +11,7 @@ export class BirthdayRecordComponent {
   public birthdayRecords: IRecord[];
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<IRecord[]>(baseUrl + 'api/birthday').subscribe(result => {
+    http.get<IRecord[]>(baseUrl + 'api/birthday/twoweeks').subscribe(result => {
       this.birthdayRecords = result;
     }, error => console.error(error));
   }

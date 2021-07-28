@@ -1,3 +1,26 @@
-input[readonly] {
-  background: #dddddd;
+h4 {
+  color: #A80000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+}
+
+.btn {
+  color: black;
+  background-color: white;
+  display: inline-block;
+  text-align: center;
+  border-radius: .25rem;
+  border-color: darkslategrey;
+}
+
+.table {
+
+}
+
+.table td, .table th {
+    vertical-align: middle;
+}
+
+input[disabled] {
+  color: black;
 }

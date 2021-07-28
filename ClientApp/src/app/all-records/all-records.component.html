@@ -12,14 +12,22 @@
       <td><input type="text" id="new-record" #newName placeholder="Name"/></td>
       <td><input type="date" id="new-date" #newDate /></td>
       <td><button class="add-btn" (click)="add(newName.value, newDate.value); newName.value=''; newDate.value=''">Add</button></td>
-      <td><button class="search-btn">Search</button></td>
+      <td><button class="search-btn" (click)="search(newName.value, newDate.value)">Search</button></td>
     </tr>
-    <tr *ngFor="let record of allBirthdayRecords; let i = index">
-      <td><input id="{{'name-' + record.id}}" type="text" [(ngModel)]="record.name" [readonly]="turnOff"/></td>
-      <td><input id="{{'date-' + record.id}}" type="date" [ngModel]="record.date | date: 'yyyy-MM-dd'" (ngModelChange)="record.date = $event" [readonly]="turnOff"/></td>
-      <td><input id="{{'check-' + record.id}}" type="checkbox" [checked]="isChecked" (change)="changeState($event)"/>Edit</td>
-      <td><button class="save-btn" [disabled]="turnOff" (click)="save(record)">Save</button></td>
-      <td><button class="delete-btn" [disabled]="turnOff" (click)="delete(record)">Delete</button></td>
+    <tr *ngFor="let record of allBirthdayRecords">
+      <td><input id="{{'name-' + record.id}}" type="text" [(ngModel)]="record.name" [readonly]="!isEditable(record.id)" /></td>
+      <td>
+        <mat-form-field appearance="fill">
+          <mat-label>Date of birth</mat-label>
+          <input matInput [matDatepicker]="picker" [(value)]="record.date" [readonly]="!isEditable(record.id)">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <!--<input id="{{'date-' + record.id}}" type="date" [ngModel]="record.date | date: 'yyyy-MM-dd'" (ngModelChange)="record.date " [readonly]="!isEditable(record.id)" />-->
+      </td>
+      <td *ngIf="!isEditable(record.id)"><button class="edit-btn" (click)="edit(record)">Edit</button></td>
+      <td *ngIf="isEditable(record.id)"><button class="save-btn" (click)="save(record)">Save</button></td>
+      <td><button class="delete-btn" (click)="delete(record)">Delete</button></td>
     </tr>
   </tbody>
 </table>

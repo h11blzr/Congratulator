@@ -41,7 +41,7 @@ export class RecordService {
 
   editRecord(record: IRecord): Observable<any> {
     return this.httpsClient.put(this.baseUrl + 'api/birthday/', record).pipe(
-      tap(_ => this.messageService.add(`Edited record w/ id=${record.id}`)),
+      tap(_ => this.messageService.add(`Saved record w/ id=${record.id}`)),
       catchError(this.handleError<IRecord>('editRecord')));
   }
 

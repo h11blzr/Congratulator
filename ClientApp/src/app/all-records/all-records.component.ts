@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { IRecord } from '../IRecord';
 import { RecordService } from '../services/record.service';
@@ -7,15 +6,14 @@ import { RecordService } from '../services/record.service';
   selector: 'app-all-records',
   templateUrl: './all-records.component.html',
   styleUrls: ['./all-records.component.css'],
-  providers: [DatePipe]
 })
 export class AllRecordsComponent implements OnInit {
   public allBirthdayRecords: IRecord[];
+  public isEditableFlags: boolean[];
 
-  turnOff: boolean = true;
-  isChecked: boolean;
-
-  constructor(private recordService: RecordService, private datePipe: DatePipe) { }
+  constructor(private recordService: RecordService) {
+    this.isEditableFlags = [];
+  }
 
   ngOnInit() {
     this.getRecords();
@@ -42,21 +40,31 @@ export class AllRecordsComponent implements OnInit {
   }
 
   save(record: IRecord): void {
-
-    this.changeState();
+    this.changeState(record.id);
     record.name = record.name.trim();
     if (!record.name) {
       return;
     } else if (!record.date) {
       return;
     }
-    //record.date = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
     this.recordService.editRecord(record).subscribe();
   }
 
-  changeState(): void {
-    this.isChecked = !this.isChecked;
-    this.turnOff = !this.isChecked;
+  edit(record: IRecord): void {
+    this.changeState(record.id);
+  }
+
+  changedDate(e): Date {
+    let date = e.target.value;
+    return date;
+  }
+
+  changeState(id: number): void {
+    this.isEditableFlags[id] = !this.isEditableFlags[id];
+  }
+
+  isEditable(id: number): boolean {
+    return this.isEditableFlags[id];
   }
 
 }

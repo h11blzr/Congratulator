@@ -1,0 +1,25 @@
+<h2 id="tableLabel">The entire list</h2>
+<p *ngIf="!allBirthdayRecords"><em>Loading...</em></p>
+<table class="table table-striped" aria-labelledby="tableLabel" *ngIf="allBirthdayRecords">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><input type="text" id="new-record" #newName placeholder="Name"/></td>
+      <td><input type="date" id="new-date" #newDate /></td>
+      <td><button class="add-btn" (click)="add(newName.value, newDate.value); newName.value=''; newDate.value=''">Add</button></td>
+      <td><button class="search-btn">Search</button></td>
+    </tr>
+    <tr *ngFor="let record of allBirthdayRecords; let i = index">
+      <td><input id="{{'name-' + record.id}}" type="text" [(ngModel)]="record.name" [readonly]="turnOff"/></td>
+      <td><input id="{{'date-' + record.id}}" type="date" [ngModel]="record.date | date: 'yyyy-MM-dd'" (ngModelChange)="record.date = $event" [readonly]="turnOff"/></td>
+      <td><input id="{{'check-' + record.id}}" type="checkbox" [checked]="isChecked" (change)="changeState($event)"/>Edit</td>
+      <td><button class="save-btn" [disabled]="turnOff" (click)="save(record)">Save</button></td>
+      <td><button class="delete-btn" [disabled]="turnOff" (click)="delete(record)">Delete</button></td>
+    </tr>
+  </tbody>
+</table>

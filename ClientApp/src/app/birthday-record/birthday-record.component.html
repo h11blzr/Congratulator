@@ -1,0 +1,16 @@
+<h2 id="tableLabel">In two weeks</h2>
+<p *ngIf="!birthdayRecords"><em>Loading...</em></p>
+<table class="table table-striped" aria-labelledby="tableLabel" *ngIf="birthdayRecords">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let record of birthdayRecords">
+      <td>{{record.name}}</td>
+      <td>{{record.date | date: 'dd/MM/yyyy'}}</td>
+    </tr>
+  </tbody>
+</table>
